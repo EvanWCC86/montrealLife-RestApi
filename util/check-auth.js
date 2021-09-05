@@ -1,7 +1,7 @@
 
 
 const jwt = require('jsonwebtoken');
-const { SECRET_KEY } = require('../config');
+require("dotenv").config();
 
 module.exports = () => {
   // context = { ... headers }
@@ -11,7 +11,7 @@ module.exports = () => {
     const token = authHeader.split('Bearer ')[1];
     if (token) {
       try {
-        const user = jwt.verify(token, SECRET_KEY);
+        const user = jwt.verify(token,  process.env.SECRET_KE);
         return user;
       } catch (err) {
         res.json('Invalid/Expired token');
